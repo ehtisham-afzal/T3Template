@@ -12,3 +12,4 @@
 - [x] pnpm
 - [x] GeistSans Font by Vercel
 - [x] Light and Dark theme
+- [x] Prose TailwindCSS Typography
