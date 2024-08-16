@@ -1,4 +1,3 @@
-import { Prose } from "@/components/Prose";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 
 export default function HomePage() {
