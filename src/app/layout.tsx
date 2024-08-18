@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import { siteConfig } from "config/site";
 import { GeistSans } from "geist/font/sans";
+import NavBar from "@/components/NavBar";
 
 // import { Inter as FontSans } from "next/font/google";
 
@@ -67,7 +68,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans text-primary antialiased",
+          "flex min-h-screen flex-col items-center bg-background font-sans text-primary antialiased",
           GeistSans.variable,
           // fontSans.variable,
         )}
@@ -78,6 +79,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NavBar />
           {children}
         </ThemeProvider>
       </body>
