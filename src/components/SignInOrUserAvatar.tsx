@@ -1,0 +1,61 @@
+import { getServerAuthSession } from "@/server/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
+import { buttonVariants } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LogOut } from "lucide-react";
+import SignOutButton from "./SignOutButton";
+
+export default async function SignInOrUserAvatar() {
+  const session = await getServerAuthSession();
+
+  return session ? (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar>
+          <AvatarImage
+            className="rounded-full border-2 border-primary"
+            alt={"user " + session.user.name}
+            width={60}
+            height={60}
+            src={session.user.image ?? "/favicon.ico"}
+          />
+          <AvatarFallback>
+            {session.user.name?.slice(0, 2) ?? "IH"}
+          </AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>
+          {session?.user?.name && (
+            <p className="truncate text-sm font-medium text-primary">
+              {session?.user?.name}
+            </p>
+          )}
+          <p className="truncate text-sm text-muted-foreground">
+            {session?.user?.email}
+          </p>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="gap-2">
+          {" "}
+          <LogOut className="size-4" /> <SignOutButton className="flex-1 text-start"/>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ) : (
+    <Link
+      href="/api/auth/signin"
+      className={buttonVariants({ variant: "default" })}
+    >
+      SignIn
+    </Link>
+  );
+}
