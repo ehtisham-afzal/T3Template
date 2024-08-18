@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+import { LogOut, User2 } from "lucide-react";
 import SignOutButton from "./SignOutButton";
 
 export default async function SignInOrUserAvatar() {
@@ -25,10 +25,16 @@ export default async function SignInOrUserAvatar() {
             alt={"user " + session.user.name}
             width={60}
             height={60}
-            src={session.user.image ?? "/favicon.ico"}
+            src={session.user.image  ?? "/favicon.ico"}
           />
           <AvatarFallback>
-            {session.user.name?.slice(0, 2) ?? "IH"}
+            {session.user.name ? (
+              session.user.name?.slice(0, 2)
+            ) : (
+              <>
+                <User2 />
+              </>
+            )}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -46,7 +52,8 @@ export default async function SignInOrUserAvatar() {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="gap-2">
           {" "}
-          <LogOut className="size-4" /> <SignOutButton className="flex-1 text-start"/>
+          <LogOut className="size-4" />{" "}
+          <SignOutButton className="flex-1 text-start" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
