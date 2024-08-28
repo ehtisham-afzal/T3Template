@@ -59,7 +59,7 @@ export default async function SignInOrUserAvatar() {
     </DropdownMenu>
   ) : (
     <Link
-      href="/api/auth/signin"
+      href="/login"
       className={buttonVariants({ variant: "default" })}
     >
       SignIn

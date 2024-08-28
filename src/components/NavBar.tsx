@@ -1,17 +1,10 @@
-// "use client";
-
 import { siteConfig } from "config/site";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { Button } from "./ui/button";
 import { ModeToggle } from "./ui/ModeToggle";
 import SignInOrUserAvatar from "./SignInOrUserAvatar";
 
 export default function NavBar() {
-//   const [state, setState] = useState(false);
-
-  // Replace javascript:void(0) path with your path
   const navigation = [
     { title: "Guides", path: "/mdx-route" },
     { title: "Pricing", path: "/pricing" },
@@ -23,7 +16,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-3 md:block md:py-5">
           <Link href="/">
             <Image
-            className="rounded-lg bg-gray-200 size-10 p-1"
+              className="rounded-lg bg-gray-200 size-10 p-1"
               src="/bot.png"
               width={40}
               height={40}
