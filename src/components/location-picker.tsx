@@ -5,7 +5,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 
 interface LocationPickerProps {
   className?: string;
@@ -28,7 +28,7 @@ export default function LocationPicker({
         mapRef.current,
       );
 
-      mapRef.current.on("click", (e: { latlng: { lat: any; lng: any } }) => {
+      mapRef.current.on("click", (e: { latlng: { lat: number; lng: number } }) => {
         const { lat, lng } = e.latlng;
         if (markerRef.current) {
           markerRef.current.setLatLng([lat, lng]);
@@ -100,13 +100,11 @@ export default function LocationPicker({
           Number(longitude.toFixed(6)),
         );
 
-        // toast.success("Location updated successfully");
-        alert("Location updated successfully");
+        toast.success("Location updated successfully");
       }
     } catch (error) {
       console.error("Geolocation error:", error);
-      // toast.error(error instanceof Error ? error.message : "Failed to get location");
-      alert(error instanceof Error ? error.message : "Failed to get location");
+      toast.error(error instanceof Error ? error.message : "Failed to get location");
     } finally {
       setIsLoading(false);
     }

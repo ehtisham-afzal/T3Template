@@ -7,8 +7,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import  LocationPicker from "@/components/location-picker";
 import { useMediaQuery } from "@/hooks/use-media-querry";
+import dynamic from "next/dynamic";
+import { Loader2 } from "lucide-react";
+
+const LocationPicker = dynamic(() => import("@/components/location-picker"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-[400px] items-center justify-center">
+      <Loader2 className="h-6 w-6 animate-spin" />
+    </div>
+  ),
+});
 
 export function SignUpForm({
   className,
@@ -58,7 +68,7 @@ export function SignUpForm({
                 {isDesktop ? null : (
                   <div className="relative h-80 overflow-hidden rounded-sm md:hidden">
                     <LocationPicker
-                      onLocationSelect={(lat: any, lng: any) =>
+                      onLocationSelect={(lat: number, lng: number) =>
                         setLocation(`${lat} ${lng}`)
                       }
                     />
@@ -107,7 +117,7 @@ export function SignUpForm({
           {isDesktop && (
             <div className="hidden md:block">
               <LocationPicker
-                onLocationSelect={(lat: any, lng: any) => setLocation(`${lat} ${lng}`)}
+                onLocationSelect={(lat: number, lng: number) => setLocation(`${lat} ${lng}`)}
               />
             </div>
           )}

@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 import { siteConfig } from "config/site";
 import { GeistSans } from "geist/font/sans";
 import NavBar from "@/components/NavBar";
+import { Toaster } from 'sonner'
 
 // import { Inter as FontSans } from "next/font/google";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
         >
           <NavBar />
           {children}
+          <Toaster position="bottom-right" />
         </ThemeProvider>
       </body>
     </html>

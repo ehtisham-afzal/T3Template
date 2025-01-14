@@ -23,8 +23,20 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
 import { MapPinIcon } from "lucide-react";
-import  Map  from "./location-picker";
 import { ScrollArea } from "./ui/scroll-area";
+import { DateInput, DateSegment } from "react-aria-components";
+
+import dynamic from "next/dynamic";
+import { Loader2 } from "lucide-react";
+
+const Map = dynamic(() => import("@/components/location-picker"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-[400px] items-center justify-center">
+      <Loader2 className="h-6 w-6 animate-spin" />
+    </div>
+  ),
+});
 
 interface FamilyMemberData {
   id: string;
@@ -75,8 +87,8 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
             <DialogDescription asChild>
               <div className="flex flex-col gap-6 p-6 pt-3">
                 <p className="w-11/12">
-                  Make changes to the family member here. Click save when you're
-                  done.
+                  Make changes to the family member here. Click save when
+                  you&aposre done.
                 </p>
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
                   <TabsList>
@@ -103,7 +115,7 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
                         <Label htmlFor="code">Code</Label>
                         <Input
                           id="code"
-                          value={editedData.code || ""}
+                          value={editedData.code ?? ""}
                           onChange={(e) =>
                             setEditedData({
                               ...editedData,
@@ -131,7 +143,15 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="birthDate">Birth Date</Label>
-                        <Calendar
+                        <DateInput className="relative inline-flex h-9 w-full items-center overflow-hidden whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm shadow-black/5 transition-shadow data-[focus-within]:border-ring data-[disabled]:opacity-50 data-[focus-within]:outline-none data-[focus-within]:ring-[3px] data-[focus-within]:ring-ring/20">
+                          {(segment) => (
+                            <DateSegment
+                              segment={segment}
+                              className="inline rounded p-0.5 text-foreground caret-transparent outline outline-0 data-[disabled]:cursor-not-allowed data-[focused]:bg-accent data-[invalid]:data-[focused]:bg-destructive data-[type=literal]:px-0 data-[focused]:data-[placeholder]:text-foreground data-[focused]:text-foreground data-[invalid]:data-[focused]:data-[placeholder]:text-destructive-foreground data-[invalid]:data-[focused]:text-destructive-foreground data-[invalid]:data-[placeholder]:text-destructive data-[invalid]:text-destructive data-[placeholder]:text-muted-foreground/70 data-[type=literal]:text-muted-foreground/70 data-[disabled]:opacity-50"
+                            />
+                          )}
+                        </DateInput>
+                        {/* <Calendar
                           mode="single"
                           selected={
                             editedData.birthDate
@@ -145,12 +165,20 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
                             })
                           }
                           className="rounded-md border"
-                        />
+                        /> */}
                       </div>
                       {editedData.status === "Deceased" && (
                         <div className="grid gap-2">
                           <Label htmlFor="deathDate">Date of Death</Label>
-                          <Calendar
+                          <DateInput className="relative inline-flex h-9 w-full items-center overflow-hidden whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm shadow-black/5 transition-shadow data-[focus-within]:border-ring data-[disabled]:opacity-50 data-[focus-within]:outline-none data-[focus-within]:ring-[3px] data-[focus-within]:ring-ring/20">
+                          {(segment) => (
+                            <DateSegment
+                              segment={segment}
+                              className="inline rounded p-0.5 text-foreground caret-transparent outline outline-0 data-[disabled]:cursor-not-allowed data-[focused]:bg-accent data-[invalid]:data-[focused]:bg-destructive data-[type=literal]:px-0 data-[focused]:data-[placeholder]:text-foreground data-[focused]:text-foreground data-[invalid]:data-[focused]:data-[placeholder]:text-destructive-foreground data-[invalid]:data-[focused]:text-destructive-foreground data-[invalid]:data-[placeholder]:text-destructive data-[invalid]:text-destructive data-[placeholder]:text-muted-foreground/70 data-[type=literal]:text-muted-foreground/70 data-[disabled]:opacity-50"
+                            />
+                          )}
+                        </DateInput>
+                          {/* <Calendar
                             mode="single"
                             selected={
                               editedData.deathDate
@@ -164,7 +192,7 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
                               })
                             }
                             className="rounded-md border"
-                          />
+                          /> */}
                         </div>
                       )}
                     </div>
@@ -196,14 +224,14 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
                       <Label>Location</Label>
                       <div className="h-[300px]">
                         <Map
-                          onLocationSelect={(lat: any, lng: any) =>
+                          onLocationSelect={(lat: number, lng: number) =>
                             setEditedData({
                               ...editedData,
                               location: { lat, lng },
                             })
                           }
                         />
-                        {editedData.location && (
+                        {/* {editedData.location && (
                           <MapPinIcon
                             className="text-red-500"
                             style={{
@@ -213,7 +241,7 @@ export function AdvancedNodeEditor({ data }: AdvancedNodeEditorProps) {
                               transform: "translate(-50%, -100%)",
                             }}
                           />
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </TabsContent>

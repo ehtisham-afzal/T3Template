@@ -2,7 +2,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import FamilyMap from "@/components/family-map";
-import { FamilyTree } from "@/components/FamilyTree";
+import  FamilyTree  from "@/components/FamilyTree";
 
 export default async function HomePage() {
   const session = await getServerAuthSession();
