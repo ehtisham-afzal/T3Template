@@ -6,45 +6,25 @@ import SignInOrUserAvatar from "./SignInOrUserAvatar";
 
 export default function NavBar() {
   const navigation = [
+    { title: "Home", path: "/" },
     { title: "Guides", path: "/mdx-route" },
     { title: "Pricing", path: "/pricing" },
   ];
 
   return (
-    <nav className="w-full bg-background">
-      <div className="mx-auto max-w-screen-xl items-center px-4 flex md:px-8">
-        <div className="flex items-center justify-between py-3 md:block md:py-5">
-          <Link href="/">
-            <Image
-              className="rounded-lg bg-gray-200 size-10 p-1"
-              src="/bot.png"
-              width={40}
-              height={40}
-              alt={siteConfig.name + " logo"}
-            />
+    <nav className="w-full px-3 sm:px-6 pt-3 sm:pt-6" >
+      <div className="mx-auto flex max-w-6xl items-center justify-between py-2 px-4 border rounded-xl sm:rounded-xl">
+      <div className="flex items-center space-x-6">
+        {navigation.map((navItem) => (
+          <Link key={navItem.path + navItem.title} href={navItem.path}>
+            {navItem.title}
           </Link>
-        </div>
-        <div
-          className={`flex-1 justify-center items-center`}
-        >
-          <ul className="items-center justify-center flex gap-2">
-            {navigation.map((item, idx) => {
-              return (
-                <li
-                  key={idx}
-                  className="text-muted-foreground hover:text-primary"
-                >
-                  <Link href={item.path}>{item.title}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className="flex items-center justify-center gap-2">
-          <ModeToggle />
-          <SignInOrUserAvatar />
-        </div>
+        ))}
       </div>
+      <div className="flex items-center space-x-4">
+        <ModeToggle />
+        <SignInOrUserAvatar />
+      </div></div>
     </nav>
   );
 }

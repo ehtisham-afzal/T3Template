@@ -19,9 +19,9 @@ export default async function SignInOrUserAvatar() {
   return session ? (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
+        <Avatar className="rounded-lg" >
           <AvatarImage
-            className="rounded-full border-2 border-primary"
+            className="rounded-lg border-2 border-muted-foreground"
             alt={"user " + session.user.name}
             width={60}
             height={60}
