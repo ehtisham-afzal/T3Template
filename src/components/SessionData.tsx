@@ -4,7 +4,7 @@ export default function SessionData({ session }: { session: Session | null }) {
   if (session?.user) {
     return (
       <div className="flex flex-col gap-4 p-4 w-full bg-secondary rounded-md">
-        <h2 className="text-xl font-bold">Current Session Data</h2>
+        <h2 className="text-xl font-bold">Current Session Data  and</h2>
         {Object.keys(session.user).length > 3 ? (
           <p>
             In this example, the whole session object is passed to the page,
